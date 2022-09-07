@@ -13,32 +13,44 @@ export default function ButtonGrid() {
         <Button
           buttonStyle={HomeScreenTheme.Button1}
           title="Bouba"
-          type='outline'
+          type='clear'
         >
           <ImageBackground
             source={require('../assets/images/bouba-goldinner.png')}
             style={{width: '100%', height: '100%'}}
-          />
+            >
+            <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
+              <Text style={HomeScreenTheme.Text}>BOUBA</Text>
+            </View>
+          </ImageBackground>
         </Button>
         <Button
           buttonStyle={HomeScreenTheme.Button2}
-          title="Bouba and Kiki"
+          title="Both"
           type='outline'
         >
           <ImageBackground
-            source={require('../assets/images/bouba+kiki-gold.png')}
-            style={{width: '100%', height: '100%'}}
-          />
+            source={require('../assets/images/boubakiki.png')}
+            style={{width: '100%', height: '100%',}}
+          >
+            <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
+              <Text style={HomeScreenTheme.Text}>BOUBA{'\n'}AND{'\n'}KIKI</Text>
+            </View>
+          </ImageBackground>
         </Button>
         <Button
           buttonStyle={HomeScreenTheme.Button3}
-          title="Neither"
+          title="Neither Bouba Nor Kiki"
           type='outline'
           >
           <ImageBackground
-            source={require('../assets/images/bouba+kiki-gray.png')}
+            source={require('../assets/images/boubakiki.png')}
             style={{width: '100%', height: '100%'}}
-          />
+            >
+            <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
+              <Text style={HomeScreenTheme.Text}>NEITHER{'\n'}BOUBA{'\n'}NOR{'\n'}KIKI</Text>
+            </View>
+          </ImageBackground>
         </Button>
         <Button
           buttonStyle={HomeScreenTheme.Button4}
@@ -48,7 +60,11 @@ export default function ButtonGrid() {
           <ImageBackground
             source={require('../assets/images/kiki-goldinner.png')}
             style={{width: '100%', height: '100%'}}
-          />
+            >
+            <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
+              <Text style={HomeScreenTheme.Text}>KIKI</Text>
+            </View>
+          </ImageBackground>
         </Button>
       </View>
       {/* <ButtonGroup
