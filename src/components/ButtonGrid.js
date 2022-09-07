@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, StatusBar, ImageBackground } from 'react-native';
 import { Button, ButtonGroup, ThemeProvider } from '@rneui/themed'
 import { HomeScreenTheme } from "../themes/HomeScreenTheme";
 
 export default function ButtonGrid() {
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [selectedIndexes, setSelectedIndexes] = useState([0, 2, 3]);
+  const [selectedButton, setSelectedButton] = useState(undefined);
+
+  useEffect(() => {
+    console.log(selectedButton)
+  }, [selectedButton]);
+
+  function handleSelect(buttonValue) {
+    setSelectedButton(buttonValue)}
+
   return (
     <ThemeProvider theme={HomeScreenTheme}>
       <View
@@ -13,7 +20,8 @@ export default function ButtonGrid() {
         <Button
           buttonStyle={HomeScreenTheme.Button1}
           title="Bouba"
-          type='clear'
+          type="clear"
+          onPress={() => handleSelect('bouba')}
         >
           <ImageBackground
             source={require('../assets/images/bouba-goldinner.png')}
@@ -28,6 +36,7 @@ export default function ButtonGrid() {
           buttonStyle={HomeScreenTheme.Button2}
           title="Both"
           type='outline'
+          onPress={() => handleSelect('both')}
         >
           <ImageBackground
             source={require('../assets/images/boubakiki.png')}
@@ -42,6 +51,7 @@ export default function ButtonGrid() {
           buttonStyle={HomeScreenTheme.Button3}
           title="Neither Bouba Nor Kiki"
           type='outline'
+          onPress={() => handleSelect("neither")}
           >
           <ImageBackground
             source={require('../assets/images/boubakiki.png')}
@@ -56,6 +66,7 @@ export default function ButtonGrid() {
           buttonStyle={HomeScreenTheme.Button4}
           title="Kiki"
           type='outline'
+          onPress={() => handleSelect("kiki")}
           >
           <ImageBackground
             source={require('../assets/images/kiki-goldinner.png')}
