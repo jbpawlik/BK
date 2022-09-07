@@ -67,14 +67,6 @@ export default function ButtonGrid() {
           </ImageBackground>
         </Button>
       </View>
-      {/* <ButtonGroup
-        containerStyle={HomeScreenTheme.ButtonGrid}
-        buttonStyle={HomeScreenTheme.ButtonGroup}
-        buttons={['Bouba', 'Kiki', 'Bouba and Kiki', 'Neither']}
-        onPress={(value) => {
-          setSelectedIndex(value);
-        }}
-      /> */}
     </ThemeProvider>
   );
 }
