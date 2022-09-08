@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, StatusBar, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import { Button, ButtonGroup, ThemeProvider } from '@rneui/themed'
 import { HomeScreenTheme } from "../themes/HomeScreenTheme";
 
