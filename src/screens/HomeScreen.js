@@ -8,16 +8,57 @@ import GraphBox from "../components/GraphBox";
 import { ThemeProvider, TabView, Tab, Image, Tile, Text } from '@rneui/themed';
 import { getDatabase, ref, set, get, update, onValue, child } from "firebase/database";
 import { faker } from '@faker-js/faker';
+import { Audio } from 'expo-av';
 
 export default function HomeScreen() {
   const [index, setIndex] = useState(1);
   const [selectedButton, setSelectedButton] = useState(undefined);
   const [borderColor, setBorderColor] = useState('gold');
-  const [graphBackgroundColor, setGraphBackgroundColor] = useState('lemonchiffon')
+  const [graphBackgroundColor, setGraphBackgroundColor] = useState('lemonchiffon');
   const [thingsList, setThingsList] = useState([]);
-  const [selectedThing, setSelectedThing] = useState(undefined)
-  const [rankings, setRankings] = useState({})
-  const [graphToShow, setGraphToShow] = useState(undefined)
+  const [selectedThing, setSelectedThing] = useState(undefined);
+  const [rankings, setRankings] = useState({});
+  const [graphToShow, setGraphToShow] = useState(undefined);
+  const [sound, setSound] = useState(undefined);
+
+  async function playBouba() {
+    console.log('Loading Sound');
+    const { sound } = await Audio.Sound.createAsync( require('../assets/sounds/bouba.mp3')
+    );
+    setSound(sound);
+    await sound.playAsync();
+  }
+
+  async function playKiki() {
+    console.log('Loading Sound');
+    const { sound } = await Audio.Sound.createAsync( require('../assets/sounds/kiki.mp3')
+    );
+    setSound(sound);
+    await sound.playAsync();
+  }
+  async function playNeither() {
+    console.log('Loading Sound');
+    const { sound } = await Audio.Sound.createAsync( require('../assets/sounds/chk.wav')
+    );
+    setSound(sound);
+    await sound.playAsync();
+  }
+  async function playBoth() {
+    console.log('Loading Sound');
+    const { sound } = await Audio.Sound.createAsync( require('../assets/sounds/bouba-kiki.mp3')
+    );
+    setSound(sound);
+    await sound.playAsync();
+  }
+
+  useEffect(() => {
+    return sound
+      ? () => {
+          console.log('Unloading Sound');
+          sound.unloadAsync();
+        }
+      : undefined;
+  }, [sound]);
 
   useEffect(() => {
     const db = getDatabase();
@@ -112,7 +153,19 @@ export default function HomeScreen() {
 
   function handleSelect(buttonValue) {
     const db = getDatabase();
-    setSelectedButton(buttonValue)
+    setSelectedButton(buttonValue);
+    if (buttonValue == 'bouba') {
+      playBouba()
+    }
+    if (buttonValue == 'kiki') {
+      playKiki()
+    }
+    if (buttonValue == 'both') {
+      playBoth()
+    }
+    if (buttonValue == 'neither') {
+      playNeither()
+    }
     // console.log(selectedThing)
     if (index == 0) {
       update(ref(db, 'things/' + selectedThing.id), {
