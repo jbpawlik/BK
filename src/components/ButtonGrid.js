@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import { Button, ButtonGroup, ThemeProvider } from '@rneui/themed'
 import { HomeScreenTheme } from "../themes/HomeScreenTheme";
 
-export default function ButtonGrid({handleSelect, borderColor}) {
+export default function ButtonGrid({handleSelect, borderColor, setSelectedThing}) {
   // const [selectedButton, setSelectedButton] = useState(undefined);
 
   // useEffect(() => {
