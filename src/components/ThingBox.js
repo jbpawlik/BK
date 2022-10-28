@@ -4,21 +4,12 @@ import { TabView, Tab, Image, Tile, Text } from '@rneui/themed'
 import { HomeScreenTheme } from "../themes/HomeScreenTheme";
 
 
-export default function ThingBox({handleSelect, borderColor, thingsList}) {
-  const [text, setText] = useState(undefined)
-
-  useEffect(() => {
-    if (thingsList) {
-      setText(thingsList[0])
-    } else {
-      setText('test')
-    }
-  }, [thingsList]);
+export default function ThingBox({handleSelect, borderColor, thingsList, selectedThing}) {
 
   return (
       <View style={[HomeScreenTheme.ThingBox, {borderColor: borderColor}]}>
         <Text style={HomeScreenTheme.BoxText}>
-          {text ? text.thing : 'test'}
+          {selectedThing ? selectedThing.thing.toUpperCase() : 'LOADING'}
         </Text>
       </View>
   )
