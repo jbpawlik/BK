@@ -4,29 +4,30 @@ import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HomeScreen from './src/screens/HomeScreen';
 import firebaseDB from './src/db/firebase';
-import {auth} from "firebase/compat/auth";
+import {getAuth, signInAnonymously, onAuthStateChanged} from "firebase/auth";
 
 export default function App() {
 
   useEffect(() => {
-    // firebaseDB.auth().signInAnonymously()
-    //   .then(() => {
-    //       console.log('anonymously signed in')
-    //     })
-    //   .catch((error) => {
-    //     let errorCode = error.code;
-    //     let errorMessage = error.message;
-    //     console.log(errorMessage)
-    // });
+    const auth = getAuth()
+    signInAnonymously(auth)
+      .then(() => {
+          console.log('anonymously signed in')
+        })
+      .catch((error) => {
+        let errorCode = error.code;
+        let errorMessage = error.message;
+        console.log(errorMessage)
+    });
 
-    // firebaseDB.auth().onAuthStateChanged((user) => {
-    //   if (user) {
-    //     let uid = user.uid;
-    //   } else {
-    //     // User is signed out
-    //     // ...
-    //   }
-    // });
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+      } else {
+        // User is signed out
+        // ...
+      }
+    });
   }, []);
 
   useEffect(() => {
