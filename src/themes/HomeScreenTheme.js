@@ -18,6 +18,21 @@ export const HomeScreenTheme = createTheme({
     // flex: 1,
     // flexDirection: 'column',
   },
+  SplashOverlay: {
+    backgroundColor: 'lemonchiffon',
+    borderWidth: 10,
+    borderColor: 'gold',
+    borderStyle: 'solid',
+    borderRadius: 10,
+  },
+  SplashOverlayText: {
+    textAlign: 'center',
+    color: 'lightgreen',
+    fontWeight: '100',
+    fontSize: DeviceWidth/14,
+    textShadowColor: 'black',
+    textShadowRadius: 5,
+  },
   // TabBar: {
   //   backgroundColor: 'gold',
   //   position: 'absolute'
@@ -87,6 +102,14 @@ export const HomeScreenTheme = createTheme({
     backgroundColor: 'lemonchiffon',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  GraphText: {
+    textAlign: 'center',
+    color: 'lightgreen',
+    fontWeight: '900',
+    fontSize: DeviceWidth/15,
+    textShadowColor: 'black',
+    textShadowRadius: 5,
   },
   BoxText: {
     textAlign: 'center',
