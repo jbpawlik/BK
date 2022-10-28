@@ -1,11 +1,12 @@
 import React, {useState, useEffect } from "react";
 import { StyleSheet, View, Dimensions } from 'react-native';
 import ButtonGrid from '../components/ButtonGrid';
+import HomeGrid from '../components/HomeGrid';
 import { HomeScreenTheme }  from "../themes/HomeScreenTheme";
 import ThingBox from "../components/ThingBox";
 import HomeBox from "../components/HomeBox";
 import GraphBox from "../components/GraphBox";
-import { ThemeProvider, TabView, Tab, Image, Tile, Text } from '@rneui/themed';
+import { ThemeProvider, TabView, Tab, Image, Tile, Text, Overlay } from '@rneui/themed';
 import { getDatabase, ref, set, get, update, onValue, child } from "firebase/database";
 import { faker } from '@faker-js/faker';
 import { Audio } from 'expo-av';
@@ -20,10 +21,36 @@ export default function HomeScreen() {
   const [rankings, setRankings] = useState({});
   const [graphToShow, setGraphToShow] = useState(undefined);
   const [sound, setSound] = useState(undefined);
+  const [bouba, setBouba] = useState(undefined);
+  const [kiki, setKiki] = useState(undefined);
+  const [both, setBoth] = useState(undefined);
+  const [neither, setNeither] = useState(undefined);
+  const [visible, setVisible] = useState(visible);
+
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
+
+
+  // async function loadSounds() {
+  //   const { bouba } = await Audio.Sound.createAsync( require('../assets/sounds/wahwah.wav'));
+  //   const { kiki } = await Audio.Sound.createAsync( require('../assets/sounds/clink.wav'));
+  //   const { both } = await Audio.Sound.createAsync( require('../assets/sounds/boing.wav'));
+  //   const { neither } = await Audio.Sound.createAsync( require('../assets/sounds/flex.wav'));
+  //   setBouba(bouba)
+  //   setKiki(kiki)
+  //   setBoth(both)
+  //   setNeither(neither)
+  // }
+
+  // async function playSound(buttonValue) {
+  //   setSound(buttonValue)
+  //   await sound.playAsync();
+  // }
 
   async function playBouba() {
     console.log('Loading Sound');
-    const { sound } = await Audio.Sound.createAsync( require('../assets/sounds/bouba.mp3')
+    const { sound } = await Audio.Sound.createAsync( require('../assets/sounds/wahwah.wav')
     );
     setSound(sound);
     await sound.playAsync();
@@ -31,34 +58,37 @@ export default function HomeScreen() {
 
   async function playKiki() {
     console.log('Loading Sound');
-    const { sound } = await Audio.Sound.createAsync( require('../assets/sounds/kiki.mp3')
+    const { sound } = await Audio.Sound.createAsync( require('../assets/sounds/clink.wav')
     );
     setSound(sound);
     await sound.playAsync();
   }
   async function playNeither() {
     console.log('Loading Sound');
-    const { sound } = await Audio.Sound.createAsync( require('../assets/sounds/chk.wav')
+    const { sound } = await Audio.Sound.createAsync( require('../assets/sounds/flex.wav')
     );
     setSound(sound);
     await sound.playAsync();
   }
   async function playBoth() {
     console.log('Loading Sound');
-    const { sound } = await Audio.Sound.createAsync( require('../assets/sounds/bouba-kiki.mp3')
+    const { sound } = await Audio.Sound.createAsync( require('../assets/sounds/boing.wav')
     );
     setSound(sound);
     await sound.playAsync();
   }
 
   useEffect(() => {
+    if(bouba != undefined && kiki != undefined && both != undefined && neither != undefined && sound != undefined) {
+      console.log(sound)
     return sound
       ? () => {
           console.log('Unloading Sound');
           sound.unloadAsync();
         }
       : undefined;
-  }, [sound]);
+    }
+  }, [bouba, kiki, both, neither, sound]);
 
   useEffect(() => {
     const db = getDatabase();
@@ -147,13 +177,14 @@ export default function HomeScreen() {
   //   setThingsList(getThings)
   // }, []);
 
-  useEffect(() => {
-    // console.log(selectedButton)
-  }, [selectedButton]);
+  // useEffect(() => {
+  //   loadSounds()
+  // }, [bouba,kiki,both,neither]);
 
   function handleSelect(buttonValue) {
     const db = getDatabase();
     setSelectedButton(buttonValue);
+    // playSound(buttonValue)
     if (buttonValue == 'bouba') {
       playBouba()
     }
@@ -172,6 +203,9 @@ export default function HomeScreen() {
         [buttonValue]: selectedThing[buttonValue] + 1
       })
       setSelectedThing(thingsList[Math.floor(Math.random() * 4999)])
+    }
+    if (index == 1) {
+      setTimeout(() => {setSelectedButton(undefined)}, 300)
     }
     if (index == 2) {
       setGraphToShow(buttonValue)
@@ -204,6 +238,23 @@ export default function HomeScreen() {
 
   return (
       <View style={HomeScreenTheme.TabScreenContainer}>
+        <Overlay overlayStyle={HomeScreenTheme.SplashOverlay} isVisible={visible} onBackdropPress={toggleOverlay}>
+          <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'column', width: '100%'}}>
+            <Text style={HomeScreenTheme.SplashOverlayText}>This is Bouba</Text>
+            <View>
+              <Image source={require('../assets/images/bouba-goldinner.png')}
+              style={{height: 100, width: 100}}
+              />
+            </View>
+            <Text style={HomeScreenTheme.SplashOverlayText}>and this is Kiki</Text>
+            <View>
+              <Image source={require('../assets/images/kiki-goldinner.png')}
+              style={{height: 100, width: 100}}
+              />
+            </View>
+            <Text style={HomeScreenTheme.SplashOverlayText}>and that's a fact.</Text>
+          </View>
+        </Overlay>
         <Tab
           value={index}
           onChange={(e) => setIndex(e)}
@@ -218,13 +269,13 @@ export default function HomeScreen() {
           />
           <Tab.Item
             buttonStyle={HomeScreenTheme.HomeHeader}
-            title="BK"
+            title="HOME"
             titleStyle={HomeScreenTheme.HeaderText}
             // icon={{ name: 'heart', type: 'ionicon', color: 'white' }}
           />
           <Tab.Item
             buttonStyle={HomeScreenTheme.GraphHeader}
-            title="GRAPH"
+            title="TOP"
             titleStyle={HomeScreenTheme.HeaderText}
             // icon={{ name: 'cart', type: 'ionicon', color: 'white' }}
           />
@@ -250,8 +301,10 @@ export default function HomeScreen() {
             <>
               <HomeBox
                 borderColor={borderColor}
+                handleSelect={handleSelect}
+                selectedButton={selectedButton}
               />
-              <ButtonGrid
+              <HomeGrid
                 borderColor={borderColor}
                 handleSelect={handleSelect}
                 selectedButton={selectedButton}
