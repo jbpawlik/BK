@@ -20,10 +20,11 @@ export const HomeScreenTheme = createTheme({
   },
   SplashOverlay: {
     backgroundColor: 'lemonchiffon',
-    borderWidth: 10,
+    borderWidth: 20,
     borderColor: 'gold',
     borderStyle: 'solid',
     borderRadius: 10,
+    padding: 20
   },
   SplashOverlayText: {
     textAlign: 'center',
@@ -66,6 +67,12 @@ export const HomeScreenTheme = createTheme({
     width: '100%',
     height: '100%',
     backgroundColor: 'orange'
+  },
+  GraphBoxBackground: {
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   ThingBox: {
     borderTopWidth: 10,

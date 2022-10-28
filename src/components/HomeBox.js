@@ -1,9 +1,14 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { View, ImageBackground } from "react-native"
 import { TabView, Tab, Image, Tile, Text } from '@rneui/themed'
 import { HomeScreenTheme } from "../themes/HomeScreenTheme";
 
-export default function HomeBox({handleSelect, borderColor, selectedButton}) {
+export default function HomeBox({handleSelect, borderColor, setSelectedButton, selectedButton, index}) {
+
+
+  useEffect(() => {
+    setSelectedButton(undefined)
+  }, [index]);
 
   return (
       <View style={[HomeScreenTheme.HomeBox, {borderColor: borderColor}]}>

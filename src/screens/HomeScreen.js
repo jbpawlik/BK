@@ -205,7 +205,7 @@ export default function HomeScreen() {
       setSelectedThing(thingsList[Math.floor(Math.random() * 4999)])
     }
     if (index == 1) {
-      setTimeout(() => {setSelectedButton(undefined)}, 300)
+      setTimeout(() => {setSelectedButton(undefined)}, 250)
     }
     if (index == 2) {
       setGraphToShow(buttonValue)
@@ -257,7 +257,7 @@ export default function HomeScreen() {
         </Overlay>
         <Tab
           value={index}
-          onChange={(e) => setIndex(e)}
+          onChange={(e) => setIndex(e), () => setSelectedButton(undefined)}
           disableIndicator
           variant="default"
         >
@@ -303,6 +303,8 @@ export default function HomeScreen() {
                 borderColor={borderColor}
                 handleSelect={handleSelect}
                 selectedButton={selectedButton}
+                setSelectedButton={setSelectedButton}
+                index={index}
               />
               <HomeGrid
                 borderColor={borderColor}
